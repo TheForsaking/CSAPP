@@ -380,7 +380,6 @@ Disassembly of section .text:
   400f41:	5d                   	pop    %rbp
   400f42:	c3                   	retq   
 
-# done phase 3
 0000000000400f43 <phase_3>:
   400f43:	48 83 ec 18          	sub    $0x18,%rsp
   400f47:	48 8d 4c 24 0c       	lea    0xc(%rsp),%rcx
@@ -394,7 +393,7 @@ Disassembly of section .text:
   400f6a:	83 7c 24 08 07       	cmpl   $0x7,0x8(%rsp)
   400f6f:	77 3c                	ja     400fad <phase_3+0x6a>
   400f71:	8b 44 24 08          	mov    0x8(%rsp),%eax
-  400f75:	ff 24 c5 70 24 40 00 	jmpq   *0x402470(,%rax,8)
+  400f75:	ff 24 c5 70 24 40 00 	jmpq   *0x402470(,%rax,8)  # 0x00400f7c
   400f7c:	b8 cf 00 00 00       	mov    $0xcf,%eax
   400f81:	eb 3b                	jmp    400fbe <phase_3+0x7b>
   400f83:	b8 c3 02 00 00       	mov    $0x2c3,%eax
@@ -419,7 +418,6 @@ Disassembly of section .text:
   400fc9:	48 83 c4 18          	add    $0x18,%rsp
   400fcd:	c3                   	retq   
 
-#分析
 0000000000400fce <func4>:（a,0,0xe）
   400fce: 48 83 ec 08           sub    $0x8,%rsp  //分配栈帧
   400fd2: 89 d0                 mov    %edx,%eax  // %eax=0xe
@@ -443,14 +441,14 @@ Disassembly of section .text:
   400fdd:	d1 f8                	sar    %eax
   400fdf:	8d 0c 30             	lea    (%rax,%rsi,1),%ecx
   400fe2:	39 f9                	cmp    %edi,%ecx // &1-7
-  400fe4:	7e 0c                	jle    400ff2 <func4+0x24> // edi < ecx
+  400fe4:	7e 0c                	jle    400ff2 <func4+0x24> // ecx <= edi
   400fe6:	8d 51 ff             	lea    -0x1(%rcx),%edx
   400fe9:	e8 e0 ff ff ff       	callq  400fce <func4>
   400fee:	01 c0                	add    %eax,%eax
   400ff0:	eb 15                	jmp    401007 <func4+0x39>
   400ff2:	b8 00 00 00 00       	mov    $0x0,%eax
   400ff7:	39 f9                	cmp    %edi,%ecx // &1-7
-  400ff9:	7d 0c                	jge    401007 <func4+0x39> // edi > ecx
+  400ff9:	7d 0c                	jge    401007 <func4+0x39> // ecx >= edi
   400ffb:	8d 71 01             	lea    0x1(%rcx),%esi
   400ffe:	e8 cb ff ff ff       	callq  400fce <func4>
   401003:	8d 44 00 01          	lea    0x1(%rax,%rax,1),%eax
@@ -461,7 +459,7 @@ Disassembly of section .text:
   40100c:	48 83 ec 18          	sub    $0x18,%rsp
   401010:	48 8d 4c 24 0c       	lea    0xc(%rsp),%rcx
   401015:	48 8d 54 24 08       	lea    0x8(%rsp),%rdx
-  40101a:	be cf 25 40 00       	mov    $0x4025cf,%esi
+  40101a:	be cf 25 40 00       	mov    $0x4025cf,%esi # 0x4025cf:       "%d %d"
   40101f:	b8 00 00 00 00       	mov    $0x0,%eax
   401024:	e8 c7 fb ff ff       	callq  400bf0 <__isoc99_sscanf@plt>
   401029:	83 f8 02             	cmp    $0x2,%eax
@@ -504,7 +502,7 @@ Disassembly of section .text:
   4010a8:	48 83 f8 06          	cmp    $0x6,%rax
   4010ac:	75 dd                	jne    40108b <phase_5+0x29>
   4010ae:	c6 44 24 16 00       	movb   $0x0,0x16(%rsp)
-  4010b3:	be 5e 24 40 00       	mov    $0x40245e,%esi
+  4010b3:	be 5e 24 40 00       	mov    $0x40245e,%esi # rvfedu
   4010b8:	48 8d 7c 24 10       	lea    0x10(%rsp),%rdi
   4010bd:	e8 76 02 00 00       	callq  401338 <strings_not_equal>
   4010c2:	85 c0                	test   %eax,%eax
